@@ -38,18 +38,18 @@
   #define LED_PIN    PIN0
   //print this out as an info during compilation
   #warning "[INFO] USING STM8S_DISCOVERY PIN MAP"
-#elif defined(NUCLEO_8S207K8)
+#elif defined(STM8S_NUCLEO_207K8)
   #include "STM8S207K8.h"
   #define LED_PORT   sfr_PORTC
   #define LED_PIN    PIN5
   //print this out as an info during compilation
-  #warning "[INFO] USING NUCLEO_8S207K8 PIN MAP"
-#elif defined(NUCLEO_8S208RB)
+  #warning "[INFO] USING NUCLEO_8S207K8 PIN MAP PORTC PIN5"
+#elif defined(STM8S_NUCLEO_208RB)
   #include "STM8S208RB.h"
   #define LED_PORT   sfr_PORTC
   #define LED_PIN    PIN5
   //print this out as an info during compilation
-  #warning "[INFO] USING NUCLEO_8S208RB PIN MAP"
+  #warning "[INFO] USING NUCLEO_8S208RB PIN MAP PORTC PIN5"
 #elif defined(STM8L_DISCOVERY)
   #include "STM8L152C6.h"
   #define LED_PORT   sfr_PORTC
@@ -67,10 +67,11 @@
   #define LED_PORT   sfr_PORTH
   #define LED_PIN    PIN2
 #else
-  #error undefined board
+  #include "STM8S103F3.h"
+  #define LED_PORT   sfr_PORTB
+  #define LED_PIN    PIN5
+  #warning "[INFO] USING STM8S103F3 PINMAP PORTB, PIN 5"
 #endif
-
-
 
 // toggle specified pin. Pass port struct as pointer
 void toggle_pin(PORT_t *port, uint8_t pin) {
@@ -86,7 +87,7 @@ void toggle_pin(PORT_t *port, uint8_t pin) {
 /////////////////
 void main (void) {
 
-  uint32_t  i;
+  uint32_t  i = 0;
     
   // switch to 16MHz (default is 2MHz)
   sfr_CLK.CKDIVR.byte = 0x00;
